@@ -1,0 +1,19 @@
+.container {
+  margin-top: 2rem;
+}
+
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.checkbox {
+  width: 2rem;
+  height: 2rem;
+}
+
+.btn-success {
+  margin-right: 2.4rem;
+}

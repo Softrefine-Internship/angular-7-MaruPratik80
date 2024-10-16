@@ -16,33 +16,71 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.dynamicFormJson = [
+      // {
+      //   label: 'first name',
+      //   type: 'text',
+      //   isRequired: true,
+      //   errorMessage: 'is required',
+      //   hint: ' write text heare',
+      // },
+      // { label: 'number', type: 'number' },
+      // { label: 'slider', type: 'slider', value: 30, hint: 'slider' },
+      // {
+      //   label: 'dropdown',
+      //   type: 'dropdown',
+      //   options: [1, 2],
+      //   value: 2,
+      //   isRequired: true,
+      //   hint: 'select favorite number',
+      // },
+      // {
+      //   label: 'checkbox',
+      //   type: 'checkbox',
+      // },
+      // {
+      //   type: 'checkbox',
+      //   label: 'Married',
+      //   isRequired: true,
+      //   // value: ,
+      //   hint: 'check if you are married',
+      //   isVisible: true,
+      //   errorMessage: 'required',
+      // },
+      // {
+      //   label: 'textarea',
+      //   type: 'textarea',
+      //   hint: ' write text heare',
+      //   value: 'adsdsfdfdfsdfdcscsacadsv',
+      // },
       {
-        label: 'text',
-        type: 'text',
-        isRequired: true,
-        errorMessage: 'is required',
-      },
-      { label: 'number', type: 'number' },
-      { label: 'slider', type: 'slider', value: 30 },
-      {
-        label: 'dropdown',
+        label: 'test',
         type: 'dropdown',
-        options: [1, 2],
-        // value: 2,
+        isRequired: true,
+        options: ['test', 9, true],
       },
       {
-        label: 'checkbox',
+        label: 'test checkbox',
         type: 'checkbox',
+        isRequired: true,
       },
       {
-        label: 'textarea',
+        label: 'age',
+        type: 'slider',
+        hint: 'set your age',
+        // value: ,
+        isRequired: true,
+      },
+      {
+        label: 'description',
         type: 'textarea',
+        hint: 'add content des',
+        isRequired: true,
       },
     ];
 
     this.dynamicFormJson.forEach((field: DynamicFormField) => {
       const control = new FormControl(
-        field.hasOwnProperty('value') ? String(field.value) : null,
+        field.hasOwnProperty('value') ? field.value : null,
         field.isRequired ? Validators.required : null
       );
       this.form.addControl(field.label, control);
@@ -50,7 +88,7 @@ export class AppComponent implements OnInit {
   }
   onSubmit() {
     this.submited = true;
-    console.log(this.form.value);
+    if (this.form.valid) console.log(this.form.value);
   }
 
   onReset() {

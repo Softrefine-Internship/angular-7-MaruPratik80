@@ -11,28 +11,44 @@
                 !form.get(field.label)?.valid &&
                 (form.get(field.label)?.touched || submited)
               "
-              >{{ field.errorMessage || "" }}</span
+              >{{ field.errorMessage || field.label + " is required" }}</span
             >
           </div>
 
           <div [ngSwitch]="field.type">
-            <input
-              *ngSwitchCase="'slider'"
-              type="range"
-              [formControlName]="field.label"
-              [id]="field.label"
-            />
+            <div *ngSwitchCase="'slider'">
+              <input
+                type="range"
+                [formControlName]="field.label"
+                [id]="field.label"
+              />
+              <p *ngIf="field.hint" class="hint">Hint: {{ field.hint }}</p>
+            </div>
 
-            <select
-              *ngSwitchCase="'dropdown'"
-              [formControlName]="field.label"
-              [id]="field.label"
-              class="form-control"
-            >
-              <option *ngFor="let option of field.options" [value]="option">
-                {{ option }}
-              </option>
-            </select>
+            <div *ngSwitchCase="'dropdown'">
+              <select
+                [formControlName]="field.label"
+                [id]="field.label"
+                class="form-control"
+                [ngClass]="{ 'ng-touched': submited }"
+              >
+                <option *ngFor="let option of field.options" [value]="option">
+                  {{ option }}
+                </option>
+              </select>
+              <p *ngIf="field.hint" class="hint">Hint: {{ field.hint }}</p>
+            </div>
+
+            <div *ngSwitchCase="'checkbox'" class="checkbox-wraper">
+              <input
+                type="checkbox"
+                [formControlName]="field.label"
+                [id]="field.label"
+                class="checkbox"
+                [ngClass]="{ 'ng-touched': submited }"
+              />
+              <p *ngIf="field.hint" class="hint">Hint: {{ field.hint }}</p>
+            </div>
 
             <textarea
               *ngSwitchCase="'textarea'"
@@ -40,6 +56,8 @@
               [id]="field.label"
               rows="3"
               class="form-control"
+              [ngClass]="{ 'ng-touched': submited }"
+              [placeholder]="field.hint || ''"
             ></textarea>
 
             <input
@@ -48,7 +66,8 @@
               [id]="field.label"
               [formControlName]="field.label"
               class="form-control"
-              [ngClass]="{ checkbox: field.type === 'checkbox' }"
+              [ngClass]="{ 'ng-touched': submited }"
+              [placeholder]="field.hint || ''"
             />
           </div>
         </div>
